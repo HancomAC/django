@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>{{post.title}}</h2>
+<h3>{{post.description}}</h3>
+<span>작성일자 : {{post.modify_dt|date:"Y F j"}}</span>
+<div>
+    {{post.content|linebreaks}}
+</div>
+{% if object.get_previous %}
+<a href="{{post.get_previous.get_absolute_url}}">이전 : {{object.get_previous}}</a>
+<br>
+{% endif %}
+{% if object.get_next %}
+<a href="{{post.get_next.get_absolute_url}}">다음 : {{object.get_next}}</a>
+{% endif %}
+<h3>댓글</h3>
+{% for comment in post.comment_set.all %}
+    <h4>{{comment.writer}}</h4>
+    <p>{{comment.content|linebreaks}}</p>
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% extends "polls/layout.html" %}
+
+{% block content %}
+	{% if lastest_question_list %}
+		<ul>
+			{% for question in lastest_question_list %}
+				<li><a href="/polls/{{question.id}}/">{{question.question_text}}</a></li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<p>등록된 투표가 없습니다.</p>
+	{% endif %}
+	<form action="{% url 'polls:add_question' %}" method="post">
+	    {% csrf_token %}
+		<input type="text" name="question_text" value="" />
+	    <input type="submit" value="질문 추가하기"/>
+	</form>
+	<br>
+	{% if page > 1 %}
+		<a href="{% url 'polls:index' %}?page={{page|add:-1}}">이전</a>
+	{% endif %}
+	{% for choice in ''|center:maxpage %}
+		{% if page == forloop.counter %}
+			<span>{{forloop.counter}}</span>
+		{% else %}
+			<a href="{% url 'polls:index' %}?page={{forloop.counter}}">{{forloop.counter}}</a>
+		{% endif %}
+	{% endfor %}
+	{% if page < maxpage %}
+		<a href="{% url 'polls:index' %}?page={{page|add:1}}">다음</a>
+	{% endif %}
+{% endblock %}

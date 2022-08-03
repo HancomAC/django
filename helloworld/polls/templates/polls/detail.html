@@ -1,0 +1,19 @@
+{% extends "polls/layout.html" %}
+{% block title %}질문 : {{question.question_text}}{% endblock %}}
+{% block content %}
+    <h3 style="color:red;">{{error}}</h3>
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+      {% csrf_token %}
+      {% for choice in question.choice_set.all %}
+        <input type="radio" name="choice" id="choice{{forloop.counter}}" value="{{choice.id}}" />
+        <label for="choice{{forloop.counter}}">{{choice.choice_text}}</label>
+      {% endfor %}
+      <input type="submit" value="투표하기"/>
+    </form>
+    <br>
+    <form action="{% url 'polls:add_choice' question.id %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="choice_text" value="" />
+        <input type="submit" value="선택지 추가하기"/>
+    </form>
+{% endblock %}

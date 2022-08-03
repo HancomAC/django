@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>게시물</h1>
+<hr>
+{% for post in posts %}
+<a href="{{post.get_absolute_url}}"><h3>{{post.title}}</h3></a>
+<p>{{post.description}}</p>
+{% endfor %}
+
+{% if page_obj.has_previous %}
+    <a href="?page={{page_obj.previous_page_number}}">이전</a>
+{% endif %}
+<span>페이지 {{page_obj.number}}/{{page_obj.paginator.num_pages}}</span>
+{% if page_obj.has_next %}
+    <a href="?page={{page_obj.next_page_number}}">다음</a>
+{% endif %}
+</body>
+</html>

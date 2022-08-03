@@ -1,0 +1,13 @@
+{% extends "polls/layout.html" %}
+{% block title %}{{question.question_text}} - 결과{% endblock %}}
+{% block content %}
+    <ul>
+      {% for choice in question.choice_set.all %}
+        <li>{{choice.choice_text}} - {{choice.votes}}표</li>
+      {% endfor %}
+    </ul>
+
+    <a href="{% url 'polls:detail' question.id %}">다시 투표하기</a>
+    <a href="{% url 'polls:index' %}">메인으로</a>
+    <a href="{% url 'polls:delete' question.id %}">이 질문 삭제</a>
+{% endblock %}
