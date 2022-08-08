@@ -21,6 +21,8 @@ class PostLV(ListView):
         if self.request.GET.get('q'):
             context['q'] = self.request.GET.get('q')
         return context
+
+
 class PostSearch(ListView):
     model = Post
     template_name = 'blog/post_search.html'
@@ -42,8 +44,10 @@ class PostDV(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PostDV, self).get_context_data(**kwargs)
-        context['post'].view += 1
-        context['post'].save()
+        if self.request.session.get('read-' + str(context['post'].id), True):
+            context['post'].view += 1
+            context['post'].save()
+        self.request.session['read-' + str(context['post'].id)] = False
         context['writer'] = self.request.session.get('writer', '')
         return context
 
