@@ -1,0 +1,5 @@
+<hr>
+{% for post in posts %}
+<a href="{{post.get_absolute_url}}"><h3>{{post.title}}</h3></a>
+<p>{{post.description}}</p>
+{% endfor %}

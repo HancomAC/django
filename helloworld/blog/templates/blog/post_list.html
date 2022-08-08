@@ -6,18 +6,33 @@
 </head>
 <body>
 <h1>게시물</h1>
-<hr>
-{% for post in posts %}
-<a href="{{post.get_absolute_url}}"><h3>{{post.title}}</h3></a>
-<p>{{post.description}}</p>
-{% endfor %}
-
+<div id="list">
+    <hr>
+    {% for post in posts %}
+    <a href="{{post.get_absolute_url}}"><h3>{{post.title}}</h3></a>
+    <p>{{post.description}}</p>
+    {% endfor %}
+</div>
 {% if page_obj.has_previous %}
-    <a href="?page={{page_obj.previous_page_number}}">이전</a>
+<a href="?page={{page_obj.previous_page_number}}">이전</a>
 {% endif %}
 <span>페이지 {{page_obj.number}}/{{page_obj.paginator.num_pages}}</span>
 {% if page_obj.has_next %}
-    <a href="?page={{page_obj.next_page_number}}">다음</a>
+<a href="?page={{page_obj.next_page_number}}">다음</a>
 {% endif %}
+<form method="get">
+    <input type="text" name="q" value="{{q}}" id="search">
+    <input type="submit" value="검색">
+</form>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let search = document.getElementById('search');
+        search.addEventListener('input', function (e) {
+            fetch('/blog/search?q=' + search.value).then(res => res.text()).then(html => {
+                document.getElementById('list').innerHTML = html;
+            })
+        })
+    })
+</script>
 </body>
 </html>

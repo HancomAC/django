@@ -9,6 +9,7 @@ class Post(models.Model):
     content = models.TextField('내용')
     create_dt = models.DateTimeField('작성일', auto_now_add=True)
     modify_dt = models.DateTimeField('수정일', auto_now=True)
+    view = models.IntegerField('조회수', default=0)
 
     class Meta:
         verbose_name = '게시글'

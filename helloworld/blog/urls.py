@@ -3,7 +3,9 @@ from . import views
 
 urlpatterns = [
     path('', views.PostLV.as_view(), name='index'),
+    path('search/', views.PostSearch.as_view(), name='index'),
     re_path(r'^post/(?P<slug>[-\w]+)/$', views.PostDV.as_view(), name='post_detail'),
+    path('comment/', views.CommentAdd.as_view(), name='comment'),
 ]
 
 app_name = 'blog'

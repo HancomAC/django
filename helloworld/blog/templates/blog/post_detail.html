@@ -8,6 +8,8 @@
 <h2>{{post.title}}</h2>
 <h3>{{post.description}}</h3>
 <span>작성일자 : {{post.modify_dt|date:"Y F j"}}</span>
+<br>
+<span>조회수 : {{post.view}}회</span>
 <div>
     {{post.content|linebreaks}}
 </div>
@@ -23,5 +25,12 @@
     <h4>{{comment.writer}}</h4>
     <p>{{comment.content|linebreaks}}</p>
 {% endfor %}
+<form action="{% url 'blog:comment' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="post" value="{{post.slug}}">
+    <input type="text" name="writer" placeholder="작성자" value="{{writer}}" />
+    <textarea name="content" placeholder="내용"></textarea>
+    <input type="submit" value="댓글작성"/>
+</form>
 </body>
 </html>

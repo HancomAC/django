@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .test {
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let elem = document.getElementById('hi');
+        elem.innerText='Hello World!';
+        elem.classList.add('test');
+    })
+</script>
+<h1 id="hi"></h1>
+</body>
+</html>
