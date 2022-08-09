@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>새 글 작성하기</h1>
+<form action="{% url 'blog:post' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="title" placeholder="제목" value="">
+    <input type="text" name="description" placeholder="설명" value="">
+    <textarea name="content" placeholder="내용"></textarea>
+    <input type="submit" value="작성"/>
+</form>
+</body>
+</html>

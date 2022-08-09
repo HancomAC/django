@@ -52,6 +52,15 @@ class PostDV(DetailView):
         return context
 
 
+class PostAdd(CreateView):
+    model = Post
+    template_name = 'blog/post_write.html'
+    fields = ['title', 'content', 'description']
+
+    def get_success_url(self):
+        return reverse('blog:post_detail', kwargs={'slug': self.object.slug})
+
+
 class CommentAdd(CreateView):
     model = Comment
     fields = ['writer', 'content', 'post']

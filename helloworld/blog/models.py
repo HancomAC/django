@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-
+from django.utils.text import slugify
 
 class Post(models.Model):
     title = models.CharField('제목', max_length=50)
@@ -28,6 +28,10 @@ class Post(models.Model):
 
     def get_next(self):
         return self.get_next_by_modify_dt()
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        self.slug = slugify(self.title, allow_unicode=True)
+        super().save(force_insert, force_update, using, update_fields)
 
 
 class Comment(models.Model):
