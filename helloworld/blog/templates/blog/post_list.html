@@ -5,7 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-<h1>게시물</h1>
+<h1>게시물<a href="{% url 'blog:post' %}">새 글 작성하기</a></h1>
+<form method="get">
+    <input type="text" name="q" value="{{q}}" id="search">
+    <input type="submit" value="검색">
+</form>
 <div id="list">
     <hr>
     {% for post in posts %}
@@ -20,10 +24,6 @@
 {% if page_obj.has_next %}
 <a href="?page={{page_obj.next_page_number}}">다음</a>
 {% endif %}
-<form method="get">
-    <input type="text" name="q" value="{{q}}" id="search">
-    <input type="submit" value="검색">
-</form>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         let search = document.getElementById('search');
