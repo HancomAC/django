@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'main',
     'polls',
     'blog',
+    'channels',
+    'chat',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +71,14 @@ TEMPLATES = [
         },
     },
 ]
+
+ASGI_APPLICATION = 'helloworld.asgi.application'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
 
 WSGI_APPLICATION = 'helloworld.wsgi.application'
 

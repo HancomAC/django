@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Chat Room</title>
+</head>
+<body>
+<div id="chat-log" style="width: 500px; height: 400px; overflow: auto;border: 1px solid black"></div>
+<input id="name" type="text" size="100"><br>
+<input id="input" type="text" size="100"><br>
+<input id="submit" type="button" value="전송">
+<script>
+    const roomName = location.pathname.split('/').filter(x => x).slice(-1)[0];
+    const chatSocket = new WebSocket(`ws://${window.location.host}/chat/${roomName}`);
+    const input = document.querySelector('#input'), log = document.querySelector('#chat-log'),
+        submit = document.querySelector('#submit');
+
+    const name = document.querySelector('#name');
+
+    chatSocket.onmessage = (e) => {
+        const data = JSON.parse(e.data);
+        log.innerText += data.name + ':' + data.message + '\n';
+    };
+
+    input.focus();
+    input.onkeyup = (e) => {
+        if (e.keyCode === 13) submit.click();
+    };
+
+    submit.onclick = function (e) {
+        chatSocket.send(JSON.stringify({
+            message: input.value,
+            name: name.value
+        }));
+        input.value = '';
+    };
+</script>
+</body>
+</html>
